@@ -1,6 +1,6 @@
 # VSCode Test Utils
 
-Test utilities extension for [VSCode](https://code.visualstudio.com/. Currently supports easily adding and removing `.only` and `.skip` modifiers with keyboard shortcuts or the command palette.
+Test utilities extension for [VSCode](https://code.visualstudio.com). Currently supports easily adding and removing `.only` and `.skip` modifiers with keyboard shortcuts or the command palette.
 
 ## Available Commands
 

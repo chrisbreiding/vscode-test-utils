@@ -1,89 +1,101 @@
 {
-  "name": "test-utils",
-  "displayName": "Test Utils",
-  "description": "Add, remove, and move .only in tests",
-  "version": "0.0.1",
-  "publisher": "chrisbreiding",
-  "engines": {
-    "vscode": "^1.17.0"
-  },
-  "scripts": {
-    "lint": "eslint --fix *.js"
-  },
-  "activationEvents": [
-    "onCommand:extension.addOnly",
-    "onCommand:extension.removeOnly",
-    "onCommand:extension.removeAllOnlys",
-    "onCommand:extension.moveOnly",
-    "onCommand:extension.addSkip",
-    "onCommand:extension.removeSkip",
-    "onCommand:extension.removeAllSkips"
-  ],
-  "main": "./extension",
-  "contributes": {
-    "commands": [
-      {
-        "command": "extension.addOnly",
-        "title": "Add only"
-      },{
-        "command": "extension.removeOnly",
-        "title": "Remove only"
-      },{
-        "command": "extension.removeAllOnlys",
-        "title": "Remove all onlys"
-      },{
-        "command": "extension.moveOnly",
-        "title": "Move only"
-      },{
-        "command": "extension.addSkip",
-        "title": "Add skip"
-      },{
-        "command": "extension.removeSkip",
-        "title": "Remove skip"
-      },{
-        "command": "extension.removeAllSkips",
-        "title": "Remove all skips"
-      }
+    "name": "test-utils",
+    "displayName": "Test Utils",
+    "description": "Add, remove, and move .only in tests",
+    "version": "1.0.0",
+    "publisher": "chrisbreiding",
+    "engines": {
+        "vscode": "^1.17.0"
+    },
+    "scripts": {
+        "lint": "eslint --fix *.js"
+    },
+    "activationEvents": [
+        "onCommand:extension.addOnly",
+        "onCommand:extension.removeOnly",
+        "onCommand:extension.removeAllOnlys",
+        "onCommand:extension.moveOnly",
+        "onCommand:extension.addSkip",
+        "onCommand:extension.removeSkip",
+        "onCommand:extension.removeAllSkips"
     ],
-    "keybindings": [
-      {
-        "command": "extension.addOnly",
-        "key": "ctrl+alt+a ctrl+alt+o",
-        "when": "editorTextFocus"
-      },{
-        "command": "extension.removeOnly",
-        "key": "ctrl+alt+r ctrl+alt+o",
-        "when": "editorTextFocus"
-      },{
-        "command": "extension.removeAllOnlys",
-        "key": "ctrl+alt+x ctrl+alt+o",
-        "when": "editorTextFocus"
-      },{
-        "command": "extension.moveOnly",
-        "key": "ctrl+alt+m ctrl+alt+o",
-        "when": "editorTextFocus"
-      },{
-        "command": "extension.addSkip",
-        "key": "ctrl+alt+a ctrl+alt+s",
-        "when": "editorTextFocus"
-      },{
-        "command": "extension.removeSkip",
-        "key": "ctrl+alt+r ctrl+alt+s",
-        "when": "editorTextFocus"
-      },{
-        "command": "extension.removeAllSkips",
-        "key": "ctrl+alt+x ctrl+alt+s",
-        "when": "editorTextFocus"
-      }
-    ]
-  },
-  "devDependencies": {
-    "typescript": "^2.5.2",
-    "vscode": "^1.1.5",
-    "mocha": "^3.5.0",
-    "eslint": "^4.6.1",
-    "eslint-plugin-cypress-dev": "^1.0.0",
-    "@types/node": "^7.0.0",
-    "@types/mocha": "^2.2.42"
-  }
+    "main": "./extension",
+    "contributes": {
+        "commands": [
+            {
+                "command": "extension.addOnly",
+                "title": "Add only"
+            },
+            {
+                "command": "extension.removeOnly",
+                "title": "Remove only"
+            },
+            {
+                "command": "extension.removeAllOnlys",
+                "title": "Remove all onlys"
+            },
+            {
+                "command": "extension.moveOnly",
+                "title": "Move only"
+            },
+            {
+                "command": "extension.addSkip",
+                "title": "Add skip"
+            },
+            {
+                "command": "extension.removeSkip",
+                "title": "Remove skip"
+            },
+            {
+                "command": "extension.removeAllSkips",
+                "title": "Remove all skips"
+            }
+        ],
+        "keybindings": [
+            {
+                "command": "extension.addOnly",
+                "key": "ctrl+alt+a ctrl+alt+o",
+                "when": "editorTextFocus"
+            },
+            {
+                "command": "extension.removeOnly",
+                "key": "ctrl+alt+r ctrl+alt+o",
+                "when": "editorTextFocus"
+            },
+            {
+                "command": "extension.removeAllOnlys",
+                "key": "ctrl+alt+x ctrl+alt+o",
+                "when": "editorTextFocus"
+            },
+            {
+                "command": "extension.moveOnly",
+                "key": "ctrl+alt+m ctrl+alt+o",
+                "when": "editorTextFocus"
+            },
+            {
+                "command": "extension.addSkip",
+                "key": "ctrl+alt+a ctrl+alt+s",
+                "when": "editorTextFocus"
+            },
+            {
+                "command": "extension.removeSkip",
+                "key": "ctrl+alt+r ctrl+alt+s",
+                "when": "editorTextFocus"
+            },
+            {
+                "command": "extension.removeAllSkips",
+                "key": "ctrl+alt+x ctrl+alt+s",
+                "when": "editorTextFocus"
+            }
+        ]
+    },
+    "devDependencies": {
+        "typescript": "^2.5.2",
+        "vscode": "^1.1.5",
+        "mocha": "^3.5.0",
+        "eslint": "^4.6.1",
+        "eslint-plugin-cypress-dev": "^1.0.0",
+        "@types/node": "^7.0.0",
+        "@types/mocha": "^2.2.42"
+    }
 }
