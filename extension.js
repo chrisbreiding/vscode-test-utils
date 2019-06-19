@@ -1,7 +1,7 @@
 const { commands, Position, Range, window } = require('vscode')
 
-const onlyRegex = () => /(describe|context|it)(\.only)/g
-const skipRegex = () => /(describe|context|it)\.skip/g
+const onlyRegex = /(describe|context|it)(\.only)/g
+const skipRegex = /(describe|context|it)\.skip/g
 const modifiableRunnableRegex = /(describe|context|it)(?=[ (])/
 
 const getLineText = (editor, selection) => {
@@ -58,7 +58,9 @@ const removeAll = (regex) => () => {
   const text = editor.document.getText()
   const edits = []
   let r
-  while ((r = regex.exec(text)) !== null) {
+  // prevent mutating regex object for re-use later
+  const re = new RegExp(regex)
+  while ((r = re.exec(text)) !== null) {
     const result = r
     const startIndex = result.index + result[1].length
     const endIndex = startIndex + result[2].length
@@ -74,7 +76,7 @@ const removeAll = (regex) => () => {
 }
 
 const moveOnly = () => {
-  return removeAll(onlyRegex())().then(() => {
+  return removeAll(onlyRegex)().then(() => {
     return addToSelections('.only')()
   })
 }
@@ -85,7 +87,7 @@ module.exports = {
     context.subscriptions.push(addOnlyCommand)
     const removeOnlyCommand = commands.registerCommand('extension.removeOnly', removeFromSelections('.only'))
     context.subscriptions.push(removeOnlyCommand)
-    const removeAllOnlysCommand = commands.registerCommand('extension.removeAllOnlys', removeAll(onlyRegex()))
+    const removeAllOnlysCommand = commands.registerCommand('extension.removeAllOnlys', removeAll(onlyRegex))
     context.subscriptions.push(removeAllOnlysCommand)
     const moveOnlyCommand = commands.registerCommand('extension.moveOnly', moveOnly)
     context.subscriptions.push(moveOnlyCommand)
