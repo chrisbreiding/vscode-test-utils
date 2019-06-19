@@ -1,7 +1,7 @@
 const { commands, Position, Range, window } = require('vscode')
 
-const onlyRegex = /(describe|context|it)\.only/g
-const skipRegex = /(describe|context|it)\.skip/g
+const onlyRegex = () => /(describe|context|it)(\.only)/g
+const skipRegex = () => /(describe|context|it)\.skip/g
 const modifiableRunnableRegex = /(describe|context|it)(?=[ (])/
 
 const getLineText = (editor, selection) => {
@@ -55,23 +55,26 @@ const removeAll = (regex) => () => {
   const editor = window.activeTextEditor
   if (!editor) return
 
-  const start = new Position(0, 0)
-  const lastLine = editor.document.lineCount - 1
-  const end = new Position(lastLine, editor.document.lineAt(lastLine).range.end.character)
-  const range = new Range(start, end)
-
-  const text = editor.document.getText(range)
+  const text = editor.document.getText()
+  const edits = []
+  let r
+  while ((r = regex.exec(text)) !== null) {
+    const result = r
+    const startIndex = result.index + result[1].length
+    const endIndex = startIndex + result[2].length
+    edits.push((edit) => {
+      const range = new Range(editor.document.positionAt(startIndex), editor.document.positionAt(endIndex))
+      edit.replace(range, '')
+    })
+  }
 
   return editor.edit((edit) => {
-    const withTextRemoved = text.replace(regex, (__, runnable) => {
-      return runnable
-    })
-    edit.replace(range, withTextRemoved)
+    edits.forEach((v) => v(edit))
   })
 }
 
 const moveOnly = () => {
-  return removeAll(onlyRegex)().then(() => {
+  return removeAll(onlyRegex())().then(() => {
     return addToSelections('.only')()
   })
 }
@@ -82,7 +85,7 @@ module.exports = {
     context.subscriptions.push(addOnlyCommand)
     const removeOnlyCommand = commands.registerCommand('extension.removeOnly', removeFromSelections('.only'))
     context.subscriptions.push(removeOnlyCommand)
-    const removeAllOnlysCommand = commands.registerCommand('extension.removeAllOnlys', removeAll(onlyRegex))
+    const removeAllOnlysCommand = commands.registerCommand('extension.removeAllOnlys', removeAll(onlyRegex()))
     context.subscriptions.push(removeAllOnlysCommand)
     const moveOnlyCommand = commands.registerCommand('extension.moveOnly', moveOnly)
     context.subscriptions.push(moveOnlyCommand)
@@ -91,7 +94,7 @@ module.exports = {
     context.subscriptions.push(addSkipCommand)
     const removeSkipCommand = commands.registerCommand('extension.removeSkip', removeFromSelections('.skip'))
     context.subscriptions.push(removeSkipCommand)
-    const removeAllSkipsCommand = commands.registerCommand('extension.removeAllSkips', removeAll(skipRegex))
+    const removeAllSkipsCommand = commands.registerCommand('extension.removeAllSkips', removeAll(skipRegex()))
     context.subscriptions.push(removeAllSkipsCommand)
   },
 }
