@@ -1,7 +1,7 @@
 const { commands, Position, Range, window } = require('vscode')
 
 const onlyRegex = /(describe|context|it)(\.only)/g
-const skipRegex = /(describe|context|it)\.skip/g
+const skipRegex = /(describe|context|it)(\.skip)/g
 const modifiableRunnableRegex = /(describe|context|it)(?=[ (])/
 
 const getLineText = (editor, selection) => {
@@ -96,7 +96,7 @@ module.exports = {
     context.subscriptions.push(addSkipCommand)
     const removeSkipCommand = commands.registerCommand('extension.removeSkip', removeFromSelections('.skip'))
     context.subscriptions.push(removeSkipCommand)
-    const removeAllSkipsCommand = commands.registerCommand('extension.removeAllSkips', removeAll(skipRegex()))
+    const removeAllSkipsCommand = commands.registerCommand('extension.removeAllSkips', removeAll(skipRegex))
     context.subscriptions.push(removeAllSkipsCommand)
   },
 }
