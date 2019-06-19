@@ -2,7 +2,7 @@
     "name": "test-utils",
     "displayName": "Test Utils",
     "description": "Add, remove, and move .only in tests",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "publisher": "chrisbreiding",
     "engines": {
         "vscode": "^1.17.0"
