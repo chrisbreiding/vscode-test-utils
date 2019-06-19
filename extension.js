@@ -1,7 +1,7 @@
 const { commands, Position, Range, window } = require('vscode')
 
-const onlyRegex = /(describe|context|it)\.only/g
-const skipRegex = /(describe|context|it)\.skip/g
+const onlyRegex = /(describe|context|it)(\.only)/g
+const skipRegex = /(describe|context|it)(\.skip)/g
 const modifiableRunnableRegex = /(describe|context|it)(?=[ (])/
 
 const getLineText = (editor, selection) => {
@@ -55,18 +55,23 @@ const removeAll = (regex) => () => {
   const editor = window.activeTextEditor
   if (!editor) return
 
-  const start = new Position(0, 0)
-  const lastLine = editor.document.lineCount - 1
-  const end = new Position(lastLine, editor.document.lineAt(lastLine).range.end.character)
-  const range = new Range(start, end)
-
-  const text = editor.document.getText(range)
+  const text = editor.document.getText()
+  const edits = []
+  let r
+  // prevent mutating regex object for re-use later
+  const re = new RegExp(regex)
+  while ((r = re.exec(text)) !== null) {
+    const result = r
+    const startIndex = result.index + result[1].length
+    const endIndex = startIndex + result[2].length
+    edits.push((edit) => {
+      const range = new Range(editor.document.positionAt(startIndex), editor.document.positionAt(endIndex))
+      edit.replace(range, '')
+    })
+  }
 
   return editor.edit((edit) => {
-    const withTextRemoved = text.replace(regex, (__, runnable) => {
-      return runnable
-    })
-    edit.replace(range, withTextRemoved)
+    edits.forEach((v) => v(edit))
   })
 }
 
