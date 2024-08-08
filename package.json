@@ -2,7 +2,7 @@
     "name": "test-utils",
     "displayName": "Test Utils",
     "description": "Add, remove, and move .only in tests",
-    "version": "1.0.2",
+    "version": "1.1.0",
     "publisher": "chrisbreiding",
     "license": "MIT",
     "homepage": "https://github.com/chrisbreiding/vscode-test-utils",
