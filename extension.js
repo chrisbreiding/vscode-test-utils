@@ -1,8 +1,8 @@
 const { commands, Position, Range, window } = require('vscode')
 
-const onlyRegex = /(describe|context|it)(\.only)/g
-const skipRegex = /(describe|context|it)(\.skip)/g
-const modifiableRunnableRegex = /(describe|context|it)(?=[ (])/
+const onlyRegex = /(describe|context|it|test)(\.only)/g
+const skipRegex = /(describe|context|it|test)(\.skip)/g
+const modifiableRunnableRegex = /(describe|context|it|test)(?=[ (])/
 
 const getLineText = (editor, selection) => {
   const startLine = selection.start.line
